@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1><%= "Hello World!" %></h1>
-<form action="/calculator" method="get">
+<form action="calculator" method="get">
     <h1>Калькулятор</h1>
 
     <label for="value1">Первое значение:</label>

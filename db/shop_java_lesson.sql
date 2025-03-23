@@ -10,11 +10,11 @@ CREATE TABLE products
 
 INSERT INTO public.products (id, name, description, price, quantity, image)
 VALUES (
-        DEFAULT,
-        'orange',
-        'я вкусный апельсин',
-        30.4,
-        30,
-        null);
+           DEFAULT,
+           'orange',
+           'я вкусный апельсин',
+           30.4,
+           30,
+           null);
 
 SELECT * FROM products;
