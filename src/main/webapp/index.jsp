@@ -19,5 +19,6 @@
 </form>
 
 <a href="hello-servlet">Hello Servlet</a>
+<a href="products">Продукты</a>
 </body>
 </html>
