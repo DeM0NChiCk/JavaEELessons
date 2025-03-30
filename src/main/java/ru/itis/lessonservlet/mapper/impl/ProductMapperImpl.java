@@ -32,7 +32,7 @@ public class ProductMapperImpl implements ProductMapper {
                         .price(product.getPrice())
                         .description(product.getDescription())
                         .quantity(product.getQuantity())
-
+                        .category(product.getCategories())
                         .build())
                 .collect(Collectors.toList());
 

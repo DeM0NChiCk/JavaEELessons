@@ -2,6 +2,8 @@ package ru.itis.lessonservlet.model;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Builder
 @ToString
@@ -9,9 +11,16 @@ import lombok.*;
 @AllArgsConstructor
 public class ProductEntity {
     Long id;
+
     String name;
+
     String description;
+
     double price;
+
     int quantity;
+
     byte[] image;
+
+    private List<CategoryEntity> categories;
 }

@@ -215,11 +215,11 @@
     <div class="content">
         <!-- Левая часть: Фильтр -->
         <div class="filter-section">
-<%--            <c:forEach var="category" items="${sessionScope.categories.categories}">--%>
-<%--                <label>--%>
-<%--                    <input type="checkbox" value="${category.name}" class="category-filter"> ${category.name}--%>
-<%--                </label><br/>--%>
-<%--            </c:forEach>--%>
+            <c:forEach var="category" items="${sessionScope.categories.categories}">
+                <label>
+                    <input type="checkbox" value="${category.name}" class="category-filter"> ${category.name}
+                </label><br/>
+            </c:forEach>
         </div>
 
         <!-- Правая часть: Список продуктов -->
@@ -227,9 +227,9 @@
             <c:forEach var="product" items="${sessionScope.products.products}">
 
                 <c:set var="categoryNames" value="" />
-<%--                <c:forEach var="category" items="${product.category}">--%>
-<%--                    <c:set var="categoryNames" value="${categoryNames += ' ' += category.name}" />--%>
-<%--                </c:forEach>--%>
+                <c:forEach var="category" items="${product.category}">
+                    <c:set var="categoryNames" value="${categoryNames += ' ' += category.name}" />
+                </c:forEach>
 
                 <div class="product-item" data-categories="${categoryNames}">
                     <img src="data:image/jpeg;base64,${product.image}" alt="${product.name}">
