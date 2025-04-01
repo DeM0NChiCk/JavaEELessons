@@ -1,3 +1,12 @@
+CREATE TABLE users
+(
+    id            SERIAL PRIMARY KEY,
+    username      VARCHAR(50) UNIQUE  NOT NULL,
+    email         VARCHAR(100) UNIQUE NOT NULL,
+    hash_password VARCHAR(255)        NOT NULL,
+    role          VARCHAR(10)         NOT NULL CHECK (role IN ('admin', 'user'))
+);
+
 CREATE TABLE products
 (
     id          SERIAL PRIMARY KEY,
