@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    ListProductsResponse getAllProducts();
+    ListProductsResponse getAllProducts(Long userId);
 
     void saveNewProduct(NewProductRequest request, List<CategoryRequest> requestList);
 }

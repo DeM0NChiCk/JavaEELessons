@@ -238,20 +238,20 @@
                     <h4 style="display:none;">Описание: ${product.description}</h4>
                     <div class="buttons">
                         <button onclick="showDetails(this)">Подробнее</button>
-<%--                        <form method="post" action="toggleProduct" style="display:inline;">--%>
-<%--                            <input type="hidden" name="productId" value="${product.id}">--%>
-<%--                            <input type="hidden" name="isFavorite" id="isFavorite_${product.id}" value="${product.favorite}">--%>
-<%--                            <button type="submit" data-favorite="${product.favorite}">--%>
-<%--                                <c:choose>--%>
-<%--                                    <c:when test="${product.favorite}">--%>
-<%--                                        Удалить из избранного--%>
-<%--                                    </c:when>--%>
-<%--                                    <c:otherwise>--%>
-<%--                                        Добавить в избранное--%>
-<%--                                    </c:otherwise>--%>
-<%--                                </c:choose>--%>
-<%--                            </button>--%>
-<%--                        </form>--%>
+                        <form method="post" action="toggleProduct" style="display:inline;">
+                            <input type="hidden" name="productId" value="${product.id}">
+                            <input type="hidden" name="isFavorite" id="isFavorite_${product.id}" value="${product.favorite}">
+                            <button type="submit" data-favorite="${product.favorite}">
+                                <c:choose>
+                                    <c:when test="${product.favorite}">
+                                        Удалить из избранного
+                                    </c:when>
+                                    <c:otherwise>
+                                        Добавить в избранное
+                                    </c:otherwise>
+                                </c:choose>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </c:forEach>

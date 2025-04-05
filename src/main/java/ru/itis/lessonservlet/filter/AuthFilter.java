@@ -25,7 +25,9 @@ public class AuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+
         ServletContext context = filterConfig.getServletContext();
+
         PROTECTED_URIS = (List<String>) context.getAttribute("PROTECTED_URIS");
         NOTAUTH_URIS = (List<String>) context.getAttribute("NOTAUTH_URIS");
         PROTECTED_ADMIN_URIS = (List<String>) context.getAttribute("PROTECTED_ADMIN_URIS");

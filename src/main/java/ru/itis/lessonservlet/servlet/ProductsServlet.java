@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ru.itis.lessonservlet.dto.response.ListCategoriesResponse;
 import ru.itis.lessonservlet.dto.response.ListProductsResponse;
+import ru.itis.lessonservlet.dto.response.UserDataResponse;
 import ru.itis.lessonservlet.service.CategoryService;
 import ru.itis.lessonservlet.service.ProductService;
 
@@ -32,7 +33,9 @@ public class ProductsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
 
-        ListProductsResponse listProductsResponse = productService.getAllProducts();
+        UserDataResponse user = (UserDataResponse) session.getAttribute("user");
+
+        ListProductsResponse listProductsResponse = productService.getAllProducts(user.getId());
         ListCategoriesResponse listCategoryResponse = categoryService.getAllCategories();
 
 

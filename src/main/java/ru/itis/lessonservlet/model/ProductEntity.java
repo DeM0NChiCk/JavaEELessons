@@ -23,4 +23,6 @@ public class ProductEntity {
     byte[] image;
 
     private List<CategoryEntity> categories;
+
+    private boolean isFavorite;
 }

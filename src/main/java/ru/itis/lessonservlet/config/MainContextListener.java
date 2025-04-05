@@ -14,15 +14,19 @@ import ru.itis.lessonservlet.mapper.impl.CategoryMapperImpl;
 import ru.itis.lessonservlet.mapper.impl.ProductMapperImpl;
 import ru.itis.lessonservlet.mapper.impl.UserMapperImpl;
 import ru.itis.lessonservlet.repository.CategoryRepository;
+import ru.itis.lessonservlet.repository.FavouritesRepository;
 import ru.itis.lessonservlet.repository.ProductRepository;
 import ru.itis.lessonservlet.repository.UserRepository;
 import ru.itis.lessonservlet.repository.impl.CategoryRepositoryImpl;
+import ru.itis.lessonservlet.repository.impl.FavouritesRepositoryImpl;
 import ru.itis.lessonservlet.repository.impl.ProductRepositoryImpl;
 import ru.itis.lessonservlet.repository.impl.UserRepositoryImpl;
 import ru.itis.lessonservlet.service.CategoryService;
+import ru.itis.lessonservlet.service.FavouritesService;
 import ru.itis.lessonservlet.service.ProductService;
 import ru.itis.lessonservlet.service.UserService;
 import ru.itis.lessonservlet.service.impl.CategoryServiceImpl;
+import ru.itis.lessonservlet.service.impl.FavouritesServiceImpl;
 import ru.itis.lessonservlet.service.impl.ProductServiceImpl;
 import ru.itis.lessonservlet.service.impl.UserServiceImpl;
 import ru.itis.lessonservlet.utils.PropertyReader;
@@ -57,7 +61,10 @@ public class MainContextListener implements ServletContextListener {
         CategoryRepository categoryRepository = new CategoryRepositoryImpl(jdbcTemplate, categoryMapper);
         context.setAttribute("categoryRepository", categoryRepository);
 
-        ProductRepository productRepository = new ProductRepositoryImpl(jdbcTemplate,categoryRepository, productMapper);
+        FavouritesRepository favouritesRepository = new FavouritesRepositoryImpl(jdbcTemplate, productMapper, categoryRepository);
+        context.setAttribute("favouritesRepository", favouritesRepository);
+
+        ProductRepository productRepository = new ProductRepositoryImpl(jdbcTemplate,categoryRepository, productMapper, favouritesRepository);
         context.setAttribute("productRepository", productRepository);
 
         UserRepository userRepository = new UserRepositoryImpl(jdbcTemplate, userMapper);
@@ -71,6 +78,9 @@ public class MainContextListener implements ServletContextListener {
 
         UserService userService = new UserServiceImpl(userRepository, userMapper);
         context.setAttribute("userService", userService);
+
+        FavouritesService favouritesService = new FavouritesServiceImpl(favouritesRepository, productMapper);
+        context.setAttribute("favouritesService", favouritesService);
 
         List<String> PROTECTED_URIS = List.of(PropertyReader.getProperty("PROTECTED_URIS").split(","));
         context.setAttribute("PROTECTED_URIS", PROTECTED_URIS);

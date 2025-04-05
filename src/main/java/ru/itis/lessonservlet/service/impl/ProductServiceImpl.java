@@ -24,8 +24,8 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public ListProductsResponse getAllProducts() {
-        List<ProductEntity> products = productRepository.getAllProducts();
+    public ListProductsResponse getAllProducts(Long userId) {
+        List<ProductEntity> products = productRepository.getAllProducts(userId);
         log.info("Get all products");
 
         if (products.isEmpty()) {
