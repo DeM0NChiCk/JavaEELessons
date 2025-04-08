@@ -6,6 +6,7 @@ import ru.itis.lessonservlet.dto.response.ListProductsResponse;
 import ru.itis.lessonservlet.mapper.ProductMapper;
 import ru.itis.lessonservlet.model.ProductEntity;
 import ru.itis.lessonservlet.repository.FavouritesRepository;
+import ru.itis.lessonservlet.repository.impl.FavouritesRepositoryImpl;
 import ru.itis.lessonservlet.service.FavouritesService;
 
 

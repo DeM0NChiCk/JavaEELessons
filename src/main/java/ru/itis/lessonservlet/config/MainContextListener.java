@@ -8,27 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ru.itis.lessonservlet.mapper.CategoryMapper;
+import ru.itis.lessonservlet.mapper.OrderMapper;
 import ru.itis.lessonservlet.mapper.ProductMapper;
 import ru.itis.lessonservlet.mapper.UserMapper;
 import ru.itis.lessonservlet.mapper.impl.CategoryMapperImpl;
+import ru.itis.lessonservlet.mapper.impl.OrderMapperImpl;
 import ru.itis.lessonservlet.mapper.impl.ProductMapperImpl;
 import ru.itis.lessonservlet.mapper.impl.UserMapperImpl;
-import ru.itis.lessonservlet.repository.CategoryRepository;
-import ru.itis.lessonservlet.repository.FavouritesRepository;
-import ru.itis.lessonservlet.repository.ProductRepository;
-import ru.itis.lessonservlet.repository.UserRepository;
-import ru.itis.lessonservlet.repository.impl.CategoryRepositoryImpl;
-import ru.itis.lessonservlet.repository.impl.FavouritesRepositoryImpl;
-import ru.itis.lessonservlet.repository.impl.ProductRepositoryImpl;
-import ru.itis.lessonservlet.repository.impl.UserRepositoryImpl;
-import ru.itis.lessonservlet.service.CategoryService;
-import ru.itis.lessonservlet.service.FavouritesService;
-import ru.itis.lessonservlet.service.ProductService;
-import ru.itis.lessonservlet.service.UserService;
-import ru.itis.lessonservlet.service.impl.CategoryServiceImpl;
-import ru.itis.lessonservlet.service.impl.FavouritesServiceImpl;
-import ru.itis.lessonservlet.service.impl.ProductServiceImpl;
-import ru.itis.lessonservlet.service.impl.UserServiceImpl;
+import ru.itis.lessonservlet.repository.*;
+import ru.itis.lessonservlet.repository.impl.*;
+import ru.itis.lessonservlet.service.*;
+import ru.itis.lessonservlet.service.impl.*;
 import ru.itis.lessonservlet.utils.PropertyReader;
 
 import javax.sql.DataSource;
@@ -58,6 +48,9 @@ public class MainContextListener implements ServletContextListener {
         UserMapper userMapper = new UserMapperImpl();
         context.setAttribute("userMapper", userMapper);
 
+        OrderMapper orderMapper = new OrderMapperImpl();
+        context.setAttribute("orderMapper", orderMapper);
+
         CategoryRepository categoryRepository = new CategoryRepositoryImpl(jdbcTemplate, categoryMapper);
         context.setAttribute("categoryRepository", categoryRepository);
 
@@ -70,6 +63,8 @@ public class MainContextListener implements ServletContextListener {
         UserRepository userRepository = new UserRepositoryImpl(jdbcTemplate, userMapper);
         context.setAttribute("userRepository", userRepository);
 
+        OrdersRepository ordersRepository = new OrdersRepositoryImpl(jdbcTemplate, orderMapper);
+
         CategoryService categoryService = new CategoryServiceImpl(categoryRepository, categoryMapper);
         context.setAttribute("categoryService", categoryService);
 
@@ -81,6 +76,9 @@ public class MainContextListener implements ServletContextListener {
 
         FavouritesService favouritesService = new FavouritesServiceImpl(favouritesRepository, productMapper);
         context.setAttribute("favouritesService", favouritesService);
+
+        OrdersService ordersService = new OrderServiceImpl(ordersRepository);
+        context.setAttribute("ordersService", ordersService);
 
         List<String> PROTECTED_URIS = List.of(PropertyReader.getProperty("PROTECTED_URIS").split(","));
         context.setAttribute("PROTECTED_URIS", PROTECTED_URIS);

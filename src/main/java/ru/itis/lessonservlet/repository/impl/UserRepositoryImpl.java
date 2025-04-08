@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import ru.itis.lessonservlet.mapper.UserMapper;
+import ru.itis.lessonservlet.mapper.impl.UserMapperImpl;
 import ru.itis.lessonservlet.model.UserEntity;
 import ru.itis.lessonservlet.repository.UserRepository;
 

@@ -50,3 +50,11 @@ CREATE TABLE favourites (
 );
 
 select c.id, c.name FROM category c join product_category pc on c.id = pc.category_id where pc.product_id = ?;
+
+CREATE TABLE orders (
+                        id SERIAL PRIMARY KEY,
+                        user_id INT NOT NULL REFERENCES users(id),
+                        product_id INT NOT NULL REFERENCES products(id),
+                        order_date TIMESTAMP NOT NULL,
+                        status_code VARCHAR(50) NOT NULL
+);

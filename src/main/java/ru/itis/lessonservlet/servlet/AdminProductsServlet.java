@@ -67,7 +67,7 @@ public class AdminProductsServlet extends HttpServlet {
             double price = 0d;
             List<CategoryRequest> categories = new ArrayList<>();
             int quantity = 0;
-            byte[] image = new byte[0];
+            byte[] image = {};
 
             List<DiskFileItem> items = upload.parseRequest(req);
 
@@ -83,7 +83,12 @@ public class AdminProductsServlet extends HttpServlet {
                 } else {
                     if ("image".equals(item.getFieldName())) {
                         try (InputStream inputStream = item.getInputStream()) {
-                            image = IOUtils.toByteArray(inputStream);
+                            if (inputStream != null) {
+                                image = IOUtils.toByteArray(inputStream);
+                            } else {
+                                image = new byte[]{1};
+                            }
+
                         }
                     }
                 }
