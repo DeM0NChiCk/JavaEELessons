@@ -11,6 +11,7 @@ import org.apache.commons.fileupload2.core.DiskFileItem;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.jakarta.servlet5.JakartaServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.springframework.context.ApplicationContext;
 import ru.itis.lessonservlet.dto.request.CategoryRequest;
 import ru.itis.lessonservlet.dto.request.NewProductRequest;
 import ru.itis.lessonservlet.dto.response.ListProductsResponse;
@@ -30,8 +31,8 @@ public class AdminProductsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ServletContext context = getServletContext();
-        productService = (ProductService) context.getAttribute("productService");
+        ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("springContext");
+        this.productService = context.getBean("productService", ProductService.class);
     }
 
     @Override

@@ -2,6 +2,9 @@ package ru.itis.lessonservlet.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import ru.itis.lessonservlet.model.OrdersEntity;
 import ru.itis.lessonservlet.repository.OrdersRepository;
 import ru.itis.lessonservlet.service.OrdersService;

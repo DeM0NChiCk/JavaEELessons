@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
 import ru.itis.lessonservlet.dto.request.SignUpRequest;
 import ru.itis.lessonservlet.dto.response.AuthResponse;
 import ru.itis.lessonservlet.service.UserService;
@@ -22,8 +23,10 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ServletContext context = getServletContext();
-        userService = (UserService) context.getAttribute("userService");
+        ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("springContext");
+
+        this.userService = context.getBean("userService", UserService.class);
+
     }
 
     @Override

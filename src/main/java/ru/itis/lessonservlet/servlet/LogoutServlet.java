@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
 
@@ -19,9 +20,10 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ServletContext context = getServletContext();
-        AUTHORIZATION = (String) context.getAttribute("AUTHORIZATION");
-        IS_ADMIN = (String) context.getAttribute("IS_ADMIN");
+        ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("springContext");
+
+        this.AUTHORIZATION = context.getBean("AUTHORIZATION", String.class);
+        this.IS_ADMIN = context.getBean("IS_ADMIN", String.class);
     }
 
     @Override

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:app.properties"/>
+
+    <!-- DataSource и JdbcTemplate -->
+    <bean id="dataSource" class="org.postgresql.ds.PGSimpleDataSource">
+        <property name="url" value="${DB_URL}"/>
+        <property name="user" value="${DB_USER}"/>
+        <property name="password" value="${DB_PASSWORD}"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <!-- Мапперы -->
+    <bean id="userMapper" class="ru.itis.lessonservlet.mapper.impl.UserMapperImpl"/>
+    <bean id="productMapper" class="ru.itis.lessonservlet.mapper.impl.ProductMapperImpl"/>
+    <bean id="categoryMapper" class="ru.itis.lessonservlet.mapper.impl.CategoryMapperImpl"/>
+    <bean id="orderMapper" class="ru.itis.lessonservlet.mapper.impl.OrderMapperImpl"/>
+
+    <!-- Репозитории -->
+    <bean id="userRepository" class="ru.itis.lessonservlet.repository.impl.UserRepositoryImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+        <constructor-arg ref="userMapper"/>
+    </bean>
+
+    <bean id="categoryRepository" class="ru.itis.lessonservlet.repository.impl.CategoryRepositoryImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+        <constructor-arg ref="categoryMapper"/>
+    </bean>
+
+    <bean id="favouritesRepository" class="ru.itis.lessonservlet.repository.impl.FavouritesRepositoryImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+        <constructor-arg ref="productMapper"/>
+        <constructor-arg ref="categoryRepository"/>
+    </bean>
+
+    <bean id="productRepository" class="ru.itis.lessonservlet.repository.impl.ProductRepositoryImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+        <constructor-arg ref="productMapper"/>
+        <constructor-arg ref="categoryRepository"/>
+        <constructor-arg ref="favouritesRepository"/>
+    </bean>
+
+    <bean id="ordersRepository" class="ru.itis.lessonservlet.repository.impl.OrdersRepositoryImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+        <constructor-arg ref="orderMapper"/>
+    </bean>
+
+    <!-- Сервисы -->
+    <bean id="userService" class="ru.itis.lessonservlet.service.impl.UserServiceImpl">
+        <constructor-arg ref="userRepository"/>
+        <constructor-arg ref="userMapper"/>
+    </bean>
+
+    <bean id="ordersService" class="ru.itis.lessonservlet.service.impl.OrderServiceImpl">
+        <constructor-arg ref="ordersRepository"/>
+    </bean>
+
+    <bean id="favouritesService" class="ru.itis.lessonservlet.service.impl.FavouritesServiceImpl">
+        <constructor-arg ref="favouritesRepository"/>
+        <constructor-arg ref="productMapper"/>
+    </bean>
+
+    <bean id="productService" class="ru.itis.lessonservlet.service.impl.ProductServiceImpl">
+        <constructor-arg ref="productRepository"/>
+        <constructor-arg ref="productMapper"/>
+    </bean>
+
+    <bean id="categoryService" class="ru.itis.lessonservlet.service.impl.CategoryServiceImpl">
+        <constructor-arg ref="categoryRepository"/>
+        <constructor-arg ref="categoryMapper"/>
+    </bean>
+
+    <!-- Конфигурационные параметры -->
+    <bean id="PROTECTED_URIS" class="java.util.Arrays" factory-method="asList">
+        <constructor-arg value="#{'${PROTECTED_URIS}'.split(',')}"/>
+    </bean>
+
+    <bean id="PROTECTED_ADMIN_URIS" class="java.util.Arrays" factory-method="asList">
+        <constructor-arg value="#{'${PROTECTED_ADMIN_URIS}'.split(',')}"/>
+    </bean>
+
+    <bean id="NOTAUTH_URIS" class="java.util.Arrays" factory-method="asList">
+        <constructor-arg value="#{'${NOTAUTH_URIS}'.split(',')}"/>
+    </bean>
+
+    <!-- Остальные строковые параметры -->
+    <bean id="PROTECTED_REDIRECT" class="java.lang.String">
+        <constructor-arg value="${PROTECTED_REDIRECT}"/>
+    </bean>
+
+    <bean id="PROTECTED_ADMIN_REDIRECT" class="java.lang.String">
+        <constructor-arg value="${PROTECTED_ADMIN_REDIRECT}"/>
+    </bean>
+
+    <bean id="NOTAUTH_REDIRECT" class="java.lang.String">
+        <constructor-arg value="${NOTAUTH_REDIRECT}"/>
+    </bean>
+
+    <bean id="AUTHORIZATION" class="java.lang.String">
+        <constructor-arg value="${AUTHORIZATION}"/>
+    </bean>
+
+    <bean id="IS_ADMIN" class="java.lang.String">
+        <constructor-arg value="${IS_ADMIN}"/>
+    </bean>
+
+    <bean id="SECRET_KEY" class="java.lang.String">
+        <constructor-arg value="${SECRET_KEY}"/>
+    </bean>
+</beans>
+

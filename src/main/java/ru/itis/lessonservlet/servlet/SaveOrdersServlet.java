@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.context.ApplicationContext;
 import ru.itis.lessonservlet.dto.request.OrderRequest;
 import ru.itis.lessonservlet.dto.response.UserDataResponse;
 import ru.itis.lessonservlet.mapper.OrderMapper;
@@ -26,9 +27,10 @@ public class SaveOrdersServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ServletContext servletContext = getServletContext();
-        ordersService = (OrdersService) servletContext.getAttribute("ordersService");
-        orderMapper = (OrderMapper) servletContext.getAttribute("orderMapper");
+        ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("springContext");
+
+        this.ordersService = context.getBean("ordersService", OrdersService.class);
+        this.orderMapper = context.getBean("orderMapper", OrderMapper.class);
     }
 
     @Override
