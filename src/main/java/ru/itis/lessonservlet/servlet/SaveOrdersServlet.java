@@ -23,14 +23,12 @@ import static ru.itis.lessonservlet.model.OrdersEntity.STATUS_PENDING;
 public class SaveOrdersServlet extends HttpServlet {
 
     private OrdersService ordersService;
-    private OrderMapper orderMapper;
 
     @Override
     public void init() throws ServletException {
         ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("springContext");
 
         this.ordersService = context.getBean("ordersService", OrdersService.class);
-        this.orderMapper = context.getBean("orderMapper", OrderMapper.class);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class SaveOrdersServlet extends HttpServlet {
                 .orderDate(LocalDateTime.now())
                 .build();
 
-        ordersService.createOrder(orderMapper.toEntity(orderRequest));
+        ordersService.createOrder(orderRequest);
 
         resp.sendRedirect("/orders");
     }

@@ -2,13 +2,14 @@ package ru.itis.lessonservlet.service;
 
 
 
+import ru.itis.lessonservlet.dto.request.OrderRequest;
 import ru.itis.lessonservlet.model.OrdersEntity;
 
 import java.util.List;
 
 public interface OrdersService {
 
-    void createOrder(OrdersEntity order);
+    void createOrder(OrderRequest order);
 
     List<OrdersEntity> getOrdersByUserId(Long userId);
 
