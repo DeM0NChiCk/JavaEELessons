@@ -3,13 +3,11 @@ package ru.itis.lessonservlet.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.itis.lessonservlet.dto.request.OrderRequest;
-import ru.itis.lessonservlet.mapper.OrderMapper;
+import ru.itis.lessonservlet.dto.request.NewOrderRequest;
 import ru.itis.lessonservlet.entity.OrdersEntity;
+import ru.itis.lessonservlet.entity.ProductEntity;
+import ru.itis.lessonservlet.entity.UserEntity;
 import ru.itis.lessonservlet.repository.OrdersRepository;
 import ru.itis.lessonservlet.repository.ProductRepository;
 import ru.itis.lessonservlet.repository.UserRepository;
@@ -25,24 +23,26 @@ public class OrderServiceImpl implements OrdersService {
 
 
     private final OrdersRepository ordersRepository;
-    private final OrderMapper orderMapper;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
     @Override
     @Transactional
-    public void createOrder(OrderRequest request) {
-        OrdersEntity order = orderMapper.toEntity(request);
-
-        order.setOrderDate(LocalDateTime.now()); // или request.getOrderDate(), если хочешь вручную
-        order.setStatusCode(OrdersEntity.STATUS_PENDING); // по умолчанию
+    public void createOrder(NewOrderRequest request) {
 
         // Загрузка пользователя и продукта по ID
-        order.setUser(userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException("User not found: " + request.getUserId())));
+        UserEntity user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + request.getUserId()));
 
-        order.setProduct(productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new EntityNotFoundException("Product not found: " + request.getProductId())));
+        ProductEntity product = productRepository.findById(request.getProductId())
+                .orElseThrow(() -> new EntityNotFoundException("Product not found: " + request.getProductId()));
+
+        OrdersEntity order = OrdersEntity.builder()
+                .user(user)
+                .product(product)
+                .orderDate(LocalDateTime.now())
+                .statusCode(OrdersEntity.STATUS_PENDING)
+                .build();
 
         ordersRepository.save(order);
 

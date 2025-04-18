@@ -14,9 +14,13 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = CategoryMapper.class)
 public interface ProductMapper {
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "categories", ignore = true)
+    @Mapping(target = "isFavorite", ignore = true)
     ProductEntity toEntity(NewProductRequest request);
 
     @Mapping(source = "image", target = "image", qualifiedByName = "imageToString")
+    @Mapping(target = "category", ignore = true)
+    @Mapping(target = "isFavorite", ignore = true)
     ProductResponse toDto(ProductEntity entity);
 
     List<ProductResponse> toDtoList(List<ProductEntity> entities);
@@ -29,7 +33,7 @@ public interface ProductMapper {
 
     @Named("imageToString")
     static String imageToString(byte[] image) {
-        return image != null ? ImageUtils.encodeToBase64(image) : null;
+        return ImageUtils.encodeToBase64(image);
     }
 
 }

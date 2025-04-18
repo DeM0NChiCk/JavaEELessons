@@ -53,6 +53,8 @@ public class UserServiceImpl implements UserService {
         if(userRepository.findUserByUsername(request.getUsername()).isPresent())
             return response(7, "Nickname taken", null);
 
+
+
         UserEntity user = userRepository.save(userMapper.toEntity(request));
 
         return response(0, "OK", userMapper.toDto(user));
