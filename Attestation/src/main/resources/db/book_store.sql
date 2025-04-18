@@ -9,9 +9,9 @@ CREATE TABLE users (
 
 -- Авторы
 CREATE TABLE authors (
-                    id SERIAL PRIMARY KEY,
-                    name VARCHAR(100) NOT NULL,
-                    bio TEXT
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                bio TEXT
 );
 
 -- Жанры
