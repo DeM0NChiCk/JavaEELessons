@@ -15,6 +15,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import ru.itis.lessonservlet.filter.AuthFilter;
+import ru.itis.lessonservlet.filter.LoggingFilter;
 
 import javax.sql.DataSource;
 import java.util.Arrays;

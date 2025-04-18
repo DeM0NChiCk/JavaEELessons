@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import ru.itis.lessonservlet.dto.response.ListProductsResponse;
 import ru.itis.lessonservlet.dto.response.UserDataResponse;
-import ru.itis.lessonservlet.model.OrdersEntity;
+import ru.itis.lessonservlet.entity.OrdersEntity;
 import ru.itis.lessonservlet.service.OrdersService;
 import ru.itis.lessonservlet.service.ProductService;
 
