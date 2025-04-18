@@ -41,13 +41,17 @@
 ### Домашнее задание 05.04.2025
 - Продолжить реализацию вашей бизнес-логики
 
-## Spring
+# Spring
+
+## Spring Context
 
 ### Домашнее заадание 08.04.2025
 - Задать beans мапперов через spring-context.xml, все остальные через аннотации. Рекомендуется изучить аннотации спринга.
 
+## Jpa + Hibernate + JPA
+
 ### Домашнее задание 15.04.2025
-- Добавить spring в проект под веткой spring/
+- Добавить spring в проект под веткой spring/ (example: homework/spring/jpa-hw)
 - Попробовать реализовать JPA + Hibernate + JPA Repository
 - Spring Boot использовать нельзя, иначе всё будет слишком просто :)
 https://habr.com/ru/companies/haulmont/articles/653843/
