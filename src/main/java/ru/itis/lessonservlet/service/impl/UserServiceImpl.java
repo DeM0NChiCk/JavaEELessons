@@ -2,22 +2,25 @@ package ru.itis.lessonservlet.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itis.lessonservlet.dto.request.SignInRequest;
 import ru.itis.lessonservlet.dto.request.SignUpRequest;
 import ru.itis.lessonservlet.dto.response.AuthResponse;
 import ru.itis.lessonservlet.dto.response.UserDataResponse;
 import ru.itis.lessonservlet.mapper.UserMapper;
-import ru.itis.lessonservlet.model.UserEntity;
+import ru.itis.lessonservlet.entity.UserEntity;
 import ru.itis.lessonservlet.repository.UserRepository;
 import ru.itis.lessonservlet.service.UserService;
 import ru.itis.lessonservlet.utils.AuthUtils;
 
 import java.util.Optional;
 
-import static ru.itis.lessonservlet.model.UserEntity.ADMIN_ROLE;
+import static ru.itis.lessonservlet.entity.UserEntity.ADMIN_ROLE;
 
 @Slf4j
 @RequiredArgsConstructor
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -26,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public AuthResponse signUp(SignUpRequest request) {
         if(request.getEmail() == null || request.getEmail().isBlank())
             return response(1, "Empty email", null);
@@ -49,12 +53,9 @@ public class UserServiceImpl implements UserService {
         if(userRepository.findUserByUsername(request.getUsername()).isPresent())
             return response(7, "Nickname taken", null);
 
-        Optional<UserEntity> optionalUser = userRepository.saveNewUser(userMapper.toEntity(request));
+        UserEntity user = userRepository.save(userMapper.toEntity(request));
 
-        if(optionalUser.isEmpty())
-            return response(50, "Database process error", null);
-
-        return response(0, "OK", userMapper.toDto(optionalUser.get()));
+        return response(0, "OK", userMapper.toDto(user));
     }
 
     @Override

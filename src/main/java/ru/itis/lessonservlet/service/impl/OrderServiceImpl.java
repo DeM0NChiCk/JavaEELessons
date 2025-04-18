@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.lessonservlet.dto.request.OrderRequest;
 import ru.itis.lessonservlet.mapper.OrderMapper;
-import ru.itis.lessonservlet.model.OrdersEntity;
+import ru.itis.lessonservlet.entity.OrdersEntity;
 import ru.itis.lessonservlet.repository.OrdersRepository;
 import ru.itis.lessonservlet.repository.ProductRepository;
 import ru.itis.lessonservlet.repository.UserRepository;

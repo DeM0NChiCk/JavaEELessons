@@ -1,9 +1,7 @@
 package ru.itis.lessonservlet.service;
 
-
-
 import ru.itis.lessonservlet.dto.request.OrderRequest;
-import ru.itis.lessonservlet.model.OrdersEntity;
+import ru.itis.lessonservlet.entity.OrdersEntity;
 
 import java.util.List;
 

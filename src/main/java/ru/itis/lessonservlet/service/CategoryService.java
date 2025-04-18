@@ -2,7 +2,7 @@ package ru.itis.lessonservlet.service;
 
 import ru.itis.lessonservlet.dto.request.CategoryRequest;
 import ru.itis.lessonservlet.dto.response.ListCategoriesResponse;
-import ru.itis.lessonservlet.model.CategoryEntity;
+import ru.itis.lessonservlet.entity.CategoryEntity;
 
 import java.util.List;
 import java.util.Optional;

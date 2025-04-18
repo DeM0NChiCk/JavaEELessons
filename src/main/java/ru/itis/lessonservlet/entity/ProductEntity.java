@@ -1,11 +1,8 @@
-package ru.itis.lessonservlet.model;
+package ru.itis.lessonservlet.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -39,7 +36,7 @@ public class ProductEntity {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<CategoryEntity> categories = new HashSet<>();
+    private Set<CategoryEntity> categories;
 
     @Transient
     private boolean isFavorite;

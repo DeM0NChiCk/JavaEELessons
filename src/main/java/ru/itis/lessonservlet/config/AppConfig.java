@@ -29,13 +29,13 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class AppConfig {
 
-    @Value("${db.url}")
+    @Value("${DB_URL}")
     private String dbUrl;
 
-    @Value("${db.username}")
+    @Value("${DB_USER}")
     private String dbUser;
 
-    @Value("${db.password}")
+    @Value("${DB_PASSWORD}")
     private String dbPassword;
 
     @Value("${PROTECTED_URIS}")
@@ -79,7 +79,7 @@ public class AppConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("ru.itis.semestr.entity");
+        em.setPackagesToScan("ru.itis.lessonservlet.entity");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

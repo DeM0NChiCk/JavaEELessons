@@ -1,4 +1,4 @@
-package ru.itis.lessonservlet.model;
+package ru.itis.lessonservlet.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
