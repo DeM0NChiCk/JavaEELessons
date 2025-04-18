@@ -54,4 +54,4 @@
 - Добавить spring в проект под веткой spring/ (example: homework/spring/jpa-hw)
 - Попробовать реализовать JPA + Hibernate + JPA Repository
 - Spring Boot использовать нельзя, иначе всё будет слишком просто :)
-https://habr.com/ru/companies/haulmont/articles/653843/
+- Статься про id в JPA: https://habr.com/ru/companies/haulmont/articles/653843/
