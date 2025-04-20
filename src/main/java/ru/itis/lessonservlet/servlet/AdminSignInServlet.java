@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.context.ApplicationContext;
 import ru.itis.lessonservlet.dto.request.SignInRequest;
 import ru.itis.lessonservlet.dto.response.AuthResponse;
 import ru.itis.lessonservlet.service.UserService;
@@ -25,11 +26,13 @@ public class AdminSignInServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ServletContext context = getServletContext();
-        userService = (UserService) context.getAttribute("userService");
-        AUTHORIZATION = (String) context.getAttribute("AUTHORIZATION");
-        IS_ADMIN = (String) context.getAttribute("IS_ADMIN");
-        SECRET_KEY = (String) context.getAttribute("SECRET_KEY");
+        ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("springContext");
+
+        this.userService = context.getBean("userService", UserService.class);
+
+        this.AUTHORIZATION = context.getBean("AUTHORIZATION", String.class);
+        this.IS_ADMIN = context.getBean("IS_ADMIN", String.class);
+        this.SECRET_KEY = context.getBean("SECRET_KEY", String.class);
     }
 
     @Override

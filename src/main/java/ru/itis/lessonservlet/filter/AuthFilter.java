@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,17 +27,17 @@ public class AuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
-        ServletContext context = filterConfig.getServletContext();
+        ApplicationContext context = (ApplicationContext) filterConfig.getServletContext().getAttribute("springContext");
 
-        PROTECTED_URIS = (List<String>) context.getAttribute("PROTECTED_URIS");
-        NOTAUTH_URIS = (List<String>) context.getAttribute("NOTAUTH_URIS");
-        PROTECTED_ADMIN_URIS = (List<String>) context.getAttribute("PROTECTED_ADMIN_URIS");
+        this.PROTECTED_URIS = (List<String>) context.getBean("PROTECTED_URIS", List.class);
+        this.NOTAUTH_URIS = (List<String>) context.getBean("NOTAUTH_URIS", List.class);
+        this.PROTECTED_ADMIN_URIS = (List<String>) context.getBean("PROTECTED_ADMIN_URIS", List.class);
 
-        PROTECTED_REDIRECT = (String) context.getAttribute("PROTECTED_REDIRECT");
-        PROTECTED_ADMIN_REDIRECT = (String) context.getAttribute("PROTECTED_ADMIN_REDIRECT");
-        NOTAUTH_REDIRECT = (String) context.getAttribute("NOTAUTH_REDIRECT");
-        AUTHORIZATION = (String) context.getAttribute("AUTHORIZATION");
-        IS_ADMIN = (String) context.getAttribute("IS_ADMIN");
+        this.PROTECTED_REDIRECT = context.getBean("PROTECTED_REDIRECT", String.class);
+        this.PROTECTED_ADMIN_REDIRECT = context.getBean("PROTECTED_ADMIN_REDIRECT", String.class);
+        this.NOTAUTH_REDIRECT = context.getBean("NOTAUTH_REDIRECT", String.class);
+        this.AUTHORIZATION = context.getBean("AUTHORIZATION", String.class);
+        this.IS_ADMIN = context.getBean("IS_ADMIN", String.class);
     }
 
     @Override

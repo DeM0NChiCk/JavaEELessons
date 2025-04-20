@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.context.ApplicationContext;
 import ru.itis.lessonservlet.dto.response.ListCategoriesResponse;
 import ru.itis.lessonservlet.dto.response.ListProductsResponse;
 import ru.itis.lessonservlet.dto.response.UserDataResponse;
@@ -22,10 +23,10 @@ public class ProductsServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ServletContext servletContext = getServletContext();
+        ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("springContext");
 
-        productService = (ProductService) servletContext.getAttribute("productService");
-        categoryService = (CategoryService) servletContext.getAttribute("categoryService");
+        this.productService = context.getBean("productService", ProductService.class);
+        this.categoryService = context.getBean("categoryService", CategoryService.class);
 
     }
 

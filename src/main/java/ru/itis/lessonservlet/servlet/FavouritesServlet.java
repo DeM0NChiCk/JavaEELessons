@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.context.ApplicationContext;
 import ru.itis.lessonservlet.dto.response.ListProductsResponse;
 import ru.itis.lessonservlet.dto.response.UserDataResponse;
 import ru.itis.lessonservlet.service.FavouritesService;
@@ -20,8 +21,8 @@ public class FavouritesServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ServletContext context = getServletContext();
-        favouritesService = (FavouritesService) context.getAttribute("favouritesService");
+        ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("springContext");
+        this.favouritesService = context.getBean("favouritesService", FavouritesService.class);
     }
 
     @Override

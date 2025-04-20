@@ -1,23 +1,27 @@
 package ru.itis.lessonservlet.repository;
 
 
-import ru.itis.lessonservlet.dto.request.CategoryRequest;
-import ru.itis.lessonservlet.model.CategoryEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import ru.itis.lessonservlet.entity.CategoryEntity;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CategoryRepository {
+@Repository
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
-    Integer addCategoryAndGetId(String categoryName);
+    @Query("SELECT c FROM CategoryEntity c WHERE c.name = :paranName")
+    Optional<CategoryEntity> findByName(@Param("paramName") String name);
 
-    Optional<Integer> findCategoryByName(String categoryName);
+    @Query("SELECT c.id FROM CategoryEntity c WHERE c.name = :paramName")
+    Optional<Integer> findCategoryIdByName(@Param("paramName") String name);
 
-    List<CategoryEntity> findCategoriesByProductId(Long productId);
+    @Query("SELECT c FROM ProductEntity p JOIN p.categories c WHERE p.id = :productId")
+    List<CategoryEntity> findCategoriesByProductId(@Param("productId") Long productId);
 
-    void saveProductCategories(Long productId, List<CategoryRequest> categories);
-
-    Optional<CategoryEntity> findCategoryById(Long id);
-
+    @Query("SELECT c FROM CategoryEntity c")
     List<CategoryEntity> getAllCategories();
 }

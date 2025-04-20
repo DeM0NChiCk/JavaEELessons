@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderRequest {
+public class NewOrderRequest {
     private Long userId;
 
     private Long productId;

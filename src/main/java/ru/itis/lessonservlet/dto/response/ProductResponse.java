@@ -1,7 +1,7 @@
 package ru.itis.lessonservlet.dto.response;
 
 import lombok.*;
-import ru.itis.lessonservlet.model.CategoryEntity;
+import ru.itis.lessonservlet.entity.CategoryEntity;
 
 import java.util.List;
 
