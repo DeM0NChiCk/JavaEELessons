@@ -6,17 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/favourites")
 @RequiredArgsConstructor
-@RequestMapping("")
-public class InfoController {
+public class FavoriteController {
 
     @GetMapping()
-    public String getGreetingPage() {
-        return "basic";
-    }
-
-    @GetMapping("/main")
-    public String getMainPape() {
-        return "main";
+    public String GetFavouritesPage() {
+        return "favourites";
     }
 }

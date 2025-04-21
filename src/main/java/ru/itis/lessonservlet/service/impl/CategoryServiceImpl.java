@@ -16,8 +16,6 @@ import ru.itis.lessonservlet.service.CategoryService;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,11 +28,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ListCategoriesResponse getAllCategories() {
-        List<CategoryEntity> categories = categoryRepository.getAllCategories();
+        List<CategoryEntity> categories = categoryRepository.findAll();
         return categoryMapper.toDto(categories); // маппер сам обработает пустой список
     }
 
     @Override
+    @Transactional
     public Integer addCategoryAndGetId(String name) {
         CategoryEntity saved = categoryRepository.save(new CategoryEntity(null, name));
         return saved.getId().intValue();
