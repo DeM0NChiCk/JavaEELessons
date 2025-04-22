@@ -1,4 +1,4 @@
-package ru.itis.lessonservlet.controller.admin;
+package ru.itis.lessonservlet.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

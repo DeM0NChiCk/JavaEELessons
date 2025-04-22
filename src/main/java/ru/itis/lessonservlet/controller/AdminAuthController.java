@@ -1,4 +1,4 @@
-package ru.itis.lessonservlet.controller.admin;
+package ru.itis.lessonservlet.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -34,7 +34,7 @@ public class AdminAuthController {
 
     @GetMapping("/signIn")
     public String getAdminSignInPage() {
-        return "adminSignIn"; // jsp/adminSignIn.jsp
+        return "adminSignIn";
     }
 
     @PostMapping("/signIn")

@@ -1,4 +1,4 @@
-package ru.itis.lessonservlet.controller.admin;
+package ru.itis.lessonservlet.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

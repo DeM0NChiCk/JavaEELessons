@@ -10,6 +10,8 @@ import ru.itis.lessonservlet.dto.request.SignUpRequest;
 import ru.itis.lessonservlet.dto.response.AuthResponse;
 import ru.itis.lessonservlet.service.UserService;
 
+import static ru.itis.lessonservlet.entity.UserEntity.USER_ROLE;
+
 @Controller
 @RequestMapping("")
 public class AuthController {
@@ -32,7 +34,7 @@ public class AuthController {
 
     @GetMapping("/signIn")
     public String getSignInPage() {
-        return "signIn"; // jsp/signIn.jsp, если настроен viewResolver
+        return "signIn";
     }
 
     @PostMapping("/signIn")
@@ -75,7 +77,7 @@ public class AuthController {
                 .email(email)
                 .username(username)
                 .password(password)
-                .role("USER")
+                .role(USER_ROLE)
                 .build();
 
         AuthResponse authResponse = userService.signUp(signUpRequest);

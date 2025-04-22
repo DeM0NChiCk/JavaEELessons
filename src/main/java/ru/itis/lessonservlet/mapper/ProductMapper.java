@@ -19,8 +19,6 @@ public interface ProductMapper {
     ProductEntity toEntity(NewProductRequest request);
 
     @Mapping(source = "image", target = "image", qualifiedByName = "imageToString")
-    @Mapping(target = "category", ignore = true)
-    @Mapping(target = "isFavorite", ignore = true)
     ProductResponse toDto(ProductEntity entity);
 
     List<ProductResponse> toDtoList(List<ProductEntity> entities);

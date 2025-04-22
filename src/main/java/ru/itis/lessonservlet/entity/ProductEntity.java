@@ -3,6 +3,8 @@ package ru.itis.lessonservlet.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -36,7 +38,7 @@ public class ProductEntity {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<CategoryEntity> categories;
+    private List<CategoryEntity> categories = new ArrayList<>();
 
     @Transient
     private boolean isFavorite;

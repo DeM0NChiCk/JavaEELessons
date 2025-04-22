@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.itis.lessonservlet.dto.request.CategoryRequest;
 import ru.itis.lessonservlet.dto.request.NewProductRequest;
 import ru.itis.lessonservlet.dto.response.ListProductsResponse;
+import ru.itis.lessonservlet.dto.response.ProductResponse;
 import ru.itis.lessonservlet.mapper.CategoryMapper;
 import ru.itis.lessonservlet.mapper.ProductMapper;
 import ru.itis.lessonservlet.entity.CategoryEntity;
@@ -38,8 +39,11 @@ public class ProductServiceImpl implements ProductService {
     public ListProductsResponse getAllProducts(Long userId) {
         List<ProductEntity> products = productRepository.findAllWithCategories();
 
-        // enrich: добавить категории и isFavorite
-        for (ProductEntity product : products) {
+        ListProductsResponse response = productMapper.toDto(products);
+
+        for (ProductResponse product : response.getProducts()) {
+            product.setCategory(categoryRepository.findCategoriesByProductId(product.getId()));
+
             product.setFavorite(
                     favouritesRepository.findByUserIdAndProductId(
                             userId,
@@ -50,7 +54,17 @@ public class ProductServiceImpl implements ProductService {
 
         log.info("Get all products");
 
-        return productMapper.toDto(products);
+        response.getProducts().forEach(product -> {
+            if (product.getCategory() != null) {
+                product.getCategory().forEach(category ->
+                        System.out.println(category.getName())
+                );
+            } else {
+                System.out.println("У продукта \"" + product.getName() + "\" нет категорий.");
+            }
+        });
+
+        return response;
     }
 
     @Transactional
@@ -59,12 +73,12 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity product = productMapper.toEntity(request);
 
         // обработка категорий
-        Set<CategoryEntity> categoryEntities = requestList.stream()
+        List<CategoryEntity> categoryEntities = requestList.stream()
                 .map(r -> categoryRepository.findByName(r.getName())
                         .orElseGet(() -> categoryRepository.save(
                                 categoryMapper.toEntity(r)
                         )))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
         product.setCategories(categoryEntities);
         productRepository.save(product);

@@ -227,8 +227,8 @@
             <c:forEach var="product" items="${sessionScope.products.products}">
 
                 <c:set var="categoryNames" value="" />
-                <c:forEach var="category" items="${product.category}">
-                    <c:set var="categoryNames" value="${categoryNames += ' ' += category.name}" />
+                <c:forEach var="category" items="${product.category}" varStatus="status">
+                    <c:set var="categoryNames" value="${categoryNames}${category.name}${!status.last ? ',' : ''}" />
                 </c:forEach>
 
                 <div class="product-item" data-categories="${categoryNames}">
@@ -301,7 +301,7 @@
             const products = document.querySelectorAll('.product-item');
 
             products.forEach(product => {
-                const productCategories = product.dataset.categories.split(' ');
+                const productCategories = product.dataset.categories.split(',');
                 const isVisible = selectedCategories.length === 0 || selectedCategories.every(category => productCategories.includes(category));
                 product.style.display = isVisible ? 'flex' : 'none';
             });
