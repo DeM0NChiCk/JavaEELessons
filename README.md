@@ -55,3 +55,8 @@
 - Попробовать реализовать JPA + Hibernate + JPA Repository
 - Spring Boot использовать нельзя, иначе всё будет слишком просто :)
 - Статься про id в JPA: https://habr.com/ru/companies/haulmont/articles/653843/
+
+## Controllers + custom filter
+
+- Настроить фильтры и контроллеры
+- Статья про Spring AOP: https://habr.com/ru/articles/428548/
