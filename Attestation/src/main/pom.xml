@@ -1,14 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.itis</groupId>
-    <artifactId>LessonServlet</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>LessonServlet</name>
-    <packaging>war</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>Attestation</groupId>
+    <artifactId>Bookstore</artifactId>
+    <version>1.0.0</version>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,6 +12,7 @@
         <maven.compiler.source>22</maven.compiler.source>
         <junit.version>5.11.0</junit.version>
     </properties>
+
 
     <dependencies>
         <dependency>
