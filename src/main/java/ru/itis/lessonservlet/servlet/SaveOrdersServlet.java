@@ -16,6 +16,7 @@ import ru.itis.lessonservlet.service.OrdersService;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import static ru.itis.lessonservlet.entity.OrdersEntity.STATUS_PENDING;
 import static ru.itis.lessonservlet.model.OrdersEntity.STATUS_PENDING;
 
 

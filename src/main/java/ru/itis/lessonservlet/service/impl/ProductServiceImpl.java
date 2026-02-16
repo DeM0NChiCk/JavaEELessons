@@ -17,10 +17,7 @@ import ru.itis.lessonservlet.repository.FavouritesRepository;
 import ru.itis.lessonservlet.repository.ProductRepository;
 import ru.itis.lessonservlet.service.ProductService;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -51,18 +48,6 @@ public class ProductServiceImpl implements ProductService {
                     ).isPresent()
             );
         }
-
-        log.info("Get all products");
-
-        response.getProducts().forEach(product -> {
-            if (product.getCategory() != null) {
-                product.getCategory().forEach(category ->
-                        System.out.println(category.getName())
-                );
-            } else {
-                System.out.println("У продукта \"" + product.getName() + "\" нет категорий.");
-            }
-        });
 
         return response;
     }

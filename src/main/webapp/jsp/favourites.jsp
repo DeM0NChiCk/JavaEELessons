@@ -258,11 +258,11 @@
                 <p>Цена: $${product.price}</p>
                 <h4 style="display:none;">Описание: ${product.description}</h4>
                 <div class="buttons">
-                    <form method="post" action="/saveOrder" >
+                    <form method="post" action="saveOrder" >
                         <input type="hidden" name="productId" value="${product.id}">
                         <button type="submit">Купить</button>
                     </form>
-                    <form method="post" action="/toggleFavorite" style="display:inline;">
+                    <form method="post" action="toggleFavorite" style="display:inline;">
                         <input type="hidden" name="productId" value="${product.id}">
                         <input type="hidden" name="isFavorite" id="isFavorite_${product.id}" value="${product.favorite}">
                         <button type="submit" data-favorite="${product.favorite}">
