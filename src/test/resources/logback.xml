@@ -1,4 +1,5 @@
 <configuration>
+
     <logger name="ru.itis.lessonservlet.aspect" level="INFO"/>
 
     <logger name="org.hibernate.SQL" level="DEBUG"/>

@@ -14,32 +14,27 @@ import java.util.List;
 @Component("authFilter")
 public class AuthFilter implements Filter {
 
-    @Autowired
-    @Qualifier("PROTECTED_URIS")
-    private List<String> PROTECTED_URIS;
-    @Autowired
-    @Qualifier("NOTAUTH_URIS")
-    private List<String> NOTAUTH_URIS;
-    @Autowired
-    @Qualifier("PROTECTED_ADMIN_URIS")
-    private List<String> PROTECTED_ADMIN_URIS;
+    private final List<String> PROTECTED_URIS;
+    private final List<String> NOTAUTH_URIS;
+    private final List<String> PROTECTED_ADMIN_URIS;
 
-    @Autowired
-    @Qualifier("PROTECTED_REDIRECT")
-    private String PROTECTED_REDIRECT;
-    @Autowired
-    @Qualifier("PROTECTED_ADMIN_REDIRECT")
-    private String PROTECTED_ADMIN_REDIRECT;
-    @Autowired
-    @Qualifier("NOTAUTH_REDIRECT")
-    private String NOTAUTH_REDIRECT;
+    private final String PROTECTED_REDIRECT;
+    private final String PROTECTED_ADMIN_REDIRECT;
+    private final String NOTAUTH_REDIRECT;
 
-    @Autowired
-    @Qualifier("AUTHORIZATION")
-    private String AUTHORIZATION;
-    @Autowired
-    @Qualifier("IS_ADMIN")
-    private String IS_ADMIN;
+    private final String AUTHORIZATION;
+    private final String IS_ADMIN;
+
+    public AuthFilter(@Qualifier("PROTECTED_URIS") List<String> PROTECTED_URIS, @Qualifier("NOTAUTH_URIS") List<String> NOTAUTH_URIS, @Qualifier("PROTECTED_ADMIN_URIS") List<String> PROTECTED_ADMIN_URIS, @Qualifier("PROTECTED_REDIRECT") String PROTECTED_REDIRECT, @Qualifier("PROTECTED_ADMIN_REDIRECT") String PROTECTED_ADMIN_REDIRECT, @Qualifier("NOTAUTH_REDIRECT") String NOTAUTH_REDIRECT, @Qualifier("AUTHORIZATION") String AUTHORIZATION, @Qualifier("IS_ADMIN") String IS_ADMIN) {
+        this.PROTECTED_URIS = PROTECTED_URIS;
+        this.NOTAUTH_URIS = NOTAUTH_URIS;
+        this.PROTECTED_ADMIN_URIS = PROTECTED_ADMIN_URIS;
+        this.PROTECTED_REDIRECT = PROTECTED_REDIRECT;
+        this.PROTECTED_ADMIN_REDIRECT = PROTECTED_ADMIN_REDIRECT;
+        this.NOTAUTH_REDIRECT = NOTAUTH_REDIRECT;
+        this.AUTHORIZATION = AUTHORIZATION;
+        this.IS_ADMIN = IS_ADMIN;
+    }
 
 
     @Override

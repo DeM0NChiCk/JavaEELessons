@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
-
     @Override
     @Transactional
     public AuthResponse signUp(SignUpRequest request) {
@@ -52,8 +51,6 @@ public class UserServiceImpl implements UserService {
 
         if(userRepository.findUserByUsername(request.getUsername()).isPresent())
             return response(7, "Nickname taken", null);
-
-
 
         UserEntity user = userRepository.save(userMapper.toEntity(request));
 
