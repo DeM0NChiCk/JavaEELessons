@@ -12,42 +12,29 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
-
         <junit.version>5.11.0</junit.version>
-
         <spring.version>6.1.14</spring.version>
-
+        <spring.security.version>7.0.5</spring.security.version>
         <java.version>17</java.version>
-
         <jakarta.version>5.0.0</jakarta.version>
-
         <jstl-api.version>3.0.2</jstl-api.version>
         <jstl.version>3.0.1</jstl.version>
-
         <postgres.version>42.7.4</postgres.version>
         <hibernate-core.version>6.6.13.Final</hibernate-core.version>
         <hikari.version>5.1.0</hikari.version>
         <jpa.version>3.4.4</jpa.version>
-
         <jackson.version>2.17.1</jackson.version>
-
         <logback.version>1.5.18</logback.version>
-
         <fileupload2.version>2.0.0-M2</fileupload2.version>
-
         <lombok.version>1.18.34</lombok.version>
-
         <jbcrypt.version>0.4</jbcrypt.version>
-
         <validation.version>3.0.2</validation.version>
         <validator.version>8.0.1.Final</validator.version>
-
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-
         <aspectj.version>1.9.22.1</aspectj.version>
+        <jjwt.version>0.12.6</jjwt.version>
     </properties>
 
     <dependencies>
@@ -176,6 +163,24 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
@@ -212,6 +217,29 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version> <!-- или 6.x для Java 17+ -->
             <scope>test</scope>
+        </dependency>
+
+        <!-- Аналог implementation -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+
+        <!-- Аналог runtimeOnly -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Аналог runtimeOnly (JSON-провайдер) -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>

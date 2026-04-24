@@ -30,4 +30,7 @@ public class UserEntity {
 
     @Pattern(regexp = "admin|user", message = "Invalid role")
     private String role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private GitHubAccountEntity gitHubAccount;
 }

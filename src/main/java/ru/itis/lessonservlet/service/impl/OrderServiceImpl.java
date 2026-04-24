@@ -1,13 +1,17 @@
 package ru.itis.lessonservlet.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
-import ru.itis.lessonservlet.dto.request.NewOrderRequest;
+import org.springframework.stereotype.Service;
+import ru.itis.lessonservlet.dto.request.NewOrdersRequest;
+import ru.itis.lessonservlet.dto.response.OrdersAllResponse;
+import ru.itis.lessonservlet.dto.response.OrdersResponse;
+import ru.itis.lessonservlet.entity.OrderItemEntity;
 import ru.itis.lessonservlet.entity.OrdersEntity;
 import ru.itis.lessonservlet.entity.ProductEntity;
 import ru.itis.lessonservlet.entity.UserEntity;
+import ru.itis.lessonservlet.mapper.OrderRequestMapper;
+import ru.itis.lessonservlet.mapper.OrderResponseMapper;
 import ru.itis.lessonservlet.repository.OrdersRepository;
 import ru.itis.lessonservlet.repository.ProductRepository;
 import ru.itis.lessonservlet.repository.UserRepository;
@@ -16,9 +20,13 @@ import ru.itis.lessonservlet.service.OrdersService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
+@Service
 public class OrderServiceImpl implements OrdersService {
 
 
@@ -26,45 +34,66 @@ public class OrderServiceImpl implements OrdersService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
+    private final OrderRequestMapper orderRequestMapper;
+    private final OrderResponseMapper orderResponseMapper;
+
     @Override
-    @Transactional
-    public void createOrder(NewOrderRequest request) {
+    public OrdersResponse createOrderIfNotExists(NewOrdersRequest request, Long userId) {
+        UUID generatedOrderNumber = UUID.randomUUID();
 
-        // Загрузка пользователя и продукта по ID
-        UserEntity user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException("User not found: " + request.getUserId()));
+        while (ordersRepository.existsByOrderNumber(generatedOrderNumber)) {
+            generatedOrderNumber = UUID.randomUUID();
+        }
 
-        ProductEntity product = productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new EntityNotFoundException("Product not found: " + request.getProductId()));
+        OrdersEntity order = orderRequestMapper.toOrderEntity(request);
+        order.setOrderNumber(generatedOrderNumber);
 
-        OrdersEntity order = OrdersEntity.builder()
-                .user(user)
-                .product(product)
-                .orderDate(LocalDateTime.now())
-                .statusCode(OrdersEntity.STATUS_PENDING)
-                .build();
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
+        order.setUser(user);
+        order.setOrderDate(LocalDateTime.now());
+        order.setStatusCode(OrdersEntity.STATUS_PENDING);
 
-        ordersRepository.save(order);
+        List<OrderItemEntity> orderItems = request.getItems().stream()
+                .map(itemRequest -> {
+                    OrderItemEntity item = orderRequestMapper.toOrderItemEntity(itemRequest);
+                    ProductEntity product = productRepository.findById(itemRequest.getProductId())
+                            .orElseThrow(() -> new IllegalArgumentException("Товар не найден: " + itemRequest.getProductId()));
+                    item.setProduct(product);
+                    item.setOrder(order);
+                    return item;
+                })
+                .collect(Collectors.toList());
 
-        log.info("Order created: userId={}, productId={}", request.getUserId(), request.getProductId());
+        order.setItems(orderItems);
+        OrdersEntity savedOrder = ordersRepository.save(order);
+
+        return orderResponseMapper.toResponse(savedOrder);
     }
 
     @Override
-    public List<OrdersEntity> getOrdersByUserId(Long userId) {
-        return ordersRepository.findAllByUserId(userId);
+    public List<OrdersResponse> getOrdersByUserId(Long userId) {
+        List<OrdersEntity> orders = ordersRepository.findAllByUserId(userId);
+        return orderResponseMapper.toResponseList(orders);
     }
 
     @Override
-    @Transactional
-    public void updateOrderStatus(Long orderId, String statusCode) {
-        ordersRepository.updateStatus(orderId, statusCode);
-        log.info("Updated order status: orderId={}, status={}", orderId, statusCode);
+    public List<OrdersAllResponse> getAllOrders() {
+        return orderResponseMapper.toResponseAllList(ordersRepository.findAll());
     }
 
     @Override
-    @Transactional
-    public void deleteOrder(Long orderId) {
-        ordersRepository.deleteById(orderId);
-        log.info("Deleted order with id={}", orderId);
+    public void updateOrderStatus(UUID orderNumber, String statusCode) {
+        if (!ordersRepository.existsByOrderNumber(orderNumber)) {
+            throw new IllegalArgumentException("Заказ с данным номером не найден:" + orderNumber);
+        }
+
+        ordersRepository.updateStatus(orderNumber, statusCode);
+    }
+
+    @Override
+    public Optional<OrdersResponse> findByOrderNumber(UUID orderNumber) {
+        return ordersRepository.findByOrderNumber(orderNumber)
+                .map(orderResponseMapper::toResponse);
     }
 }

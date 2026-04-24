@@ -38,7 +38,7 @@ public class ProductEntity {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<CategoryEntity> categories = new ArrayList<>();
+    private List<CategoryEntity> categories;
 
     @Transient
     private boolean isFavorite;

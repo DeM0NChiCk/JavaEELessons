@@ -1,0 +1,112 @@
+body {
+    background-image: url('../image/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 1200px;
+    height: 632px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    position: relative;
+}
+
+.button {
+    text-decoration: none;
+    color: white;
+    background-color: #2196F3;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 40px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+    position: absolute;
+    width: 300px;
+    transform-origin: center;
+}
+
+.button:hover {
+    background-color: #1976D2;
+    transform: scale(1.1);
+}
+
+.button svg {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    fill: white;
+    transition: fill 0.3s;
+}
+
+.button:hover svg {
+    fill: white;
+}
+
+.button-left-top {
+    top: 20%;
+    left: 15%;
+}
+
+.button-right-top {
+    top: 20%;
+    right: 15%;
+}
+
+.button-middle {
+    top: 60%;
+    left: calc(50% - 180px);
+}
+
+.logout-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.logout-button button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    transform-origin: bottom right;
+}
+
+.logout-button button:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}

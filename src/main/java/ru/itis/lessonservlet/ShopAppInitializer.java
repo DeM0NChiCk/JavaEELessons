@@ -31,11 +31,16 @@ public class ShopAppInitializer implements WebApplicationInitializer {
         dispatcher.addMapping("/");
 
         // Регистрируем фильтры через DelegatingFilterProxy
-        servletContext.addFilter("loggingFilter", new DelegatingFilterProxy("loggingFilter"))
-                .addMappingForUrlPatterns(null, false, "/*");
+//        servletContext.addFilter("loggingFilter", new DelegatingFilterProxy("loggingFilter"))
+//                .addMappingForUrlPatterns(null, false, "/*");
 
         servletContext.addFilter("authFilter", new DelegatingFilterProxy("authFilter"))
                 .addMappingForUrlPatterns(null, false, "/*");
+
+        servletContext.addFilter(
+                "springSecurityFilterChain", // 🔥 критично: именно такое имя!
+                new DelegatingFilterProxy("springSecurityFilterChain")
+        );
 
     }
 }

@@ -1,0 +1,87 @@
+table {
+    width: 100%;
+    height: auto;
+    border-spacing: 0;
+    border-collapse: separate;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px;
+    border: 1px solid #ccc;
+    vertical-align: top;
+    text-align: left;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-size: 18px;
+}
+
+td {
+    font-size: 16px;
+}
+
+td:first-child, th:first-child {
+    max-width: 200px;
+    width: 15%;
+}
+
+/* Скругления углов таблицы */
+thead th:first-child {
+    border-top-left-radius: 15px;
+}
+
+thead th:last-child {
+    border-top-right-radius: 15px;
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 15px;
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 15px;
+}
+
+.action-cell {
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.status-select {
+    padding: 6px;
+}
+
+.submit-btn {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-button-update {
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 4px;
+    transition: background-color 0.3s;
+}
+
+.action-button-update:hover {
+    background-color: #45a049;
+}
