@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import ru.itis.lessonservlet.aspect.service.MyService;
-import ru.itis.lessonservlet.config.TestConfig;
+import ru.itis.semestr.aspect.service.MyService;
+import ru.itis.semestr.config.TestConfig;
 
 import java.util.ArrayList;
 import java.util.List;
